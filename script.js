@@ -3,9 +3,74 @@
 let db; // База данных
 let currentDayOffset = 0; // Смещение для выбора даты
 let selectedDate = new Date();
+let currentCalendarDate = new Date(); // НОВОЕ
+let isCalendarOpen = false; // НОВОЕ
 
 // ------------ Общие функции интерфейса ------------
+// ------------ Функции календаря (НОВОЕ) ------------
+function selectCalendarDay(dayElement, day) {
+    currentCalendarDate.setDate(day);
+    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected-day'));
+    dayElement.classList.add('selected-day');
+    updateSelectedDate();
+    toggleCalendar();
+}
 
+function generateCalendar() {
+    const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                       'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    
+    const calendarGrid = document.querySelector('.calendar-grid');
+    calendarGrid.innerHTML = '';
+
+    // Заголовок календаря
+    document.getElementById('calendar-month').innerHTML = `
+        <div>${monthNames[currentCalendarDate.getMonth()]}</div>
+        <div>${currentCalendarDate.getFullYear()}</div>
+    `;
+
+    // Дни месяца
+    const lastDay = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1, 0).getDate();
+    for (let day = 1; day <= lastDay; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = day;
+        
+        if (day === currentCalendarDate.getDate()) {
+            dayElement.classList.add('selected-day');
+        }
+
+        dayElement.onclick = () => selectCalendarDay(dayElement, day);
+        calendarGrid.appendChild(dayElement);
+    }
+}
+
+function toggleCalendar() {
+    const calendar = document.getElementById('custom-calendar');
+    isCalendarOpen = !isCalendarOpen;
+    calendar.style.display = isCalendarOpen ? 'block' : 'none';
+    
+    if (isCalendarOpen) {
+        currentCalendarDate = new Date(document.getElementById('selected-date').dataset.date) || new Date();
+        generateCalendar();
+    }
+}
+
+// ИЗМЕНЕНО: Функция изменения дня стрелками
+function changeDay(offset) {
+    if (!isCalendarOpen) {
+        currentCalendarDate.setDate(currentCalendarDate.getDate() + offset);
+        updateSelectedDate();
+    }
+}
+
+// ИЗМЕНЕНО: Функция обновления отображения даты
+function updateSelectedDate() {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const dateString = currentCalendarDate.toLocaleDateString('ru-RU', options);
+    document.getElementById('selected-date').textContent = dateString;
+    updateTimeSlots();
+}
 // Функция для кнопки "Читать полностью" и "Скрыть"
 function toggleReadMore() {
     const hiddenText = document.getElementById('hidden-text');
@@ -35,6 +100,7 @@ document.getElementById('fixed-button').addEventListener('click', function () {
 });
 
 // Показ текущего шага и скрытие остальных
+// ИЗМЕНЕНО: Функция showStep
 function showStep(step) {
     document.querySelectorAll('.step').forEach(function (stepElement) {
         stepElement.style.display = 'none';
@@ -62,13 +128,13 @@ function showStep(step) {
         setupStep4Listeners();
     }
 
-    // Инициализация даты при открытии шага 3
+    // НОВОЕ: Инициализация календаря при открытии шага 3
     if (step === 3) {
-        selectedDate = new Date();
-        updateDayDisplay();
-        updateTimeSlots(); // Обновляем временные слоты при изменении даты
+        currentCalendarDate = new Date();
+        updateSelectedDate();
     }
 }
+
 
 function nextStep() {
     const currentStep = document.querySelector('.step[style="display: flex;"]');
