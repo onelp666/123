@@ -249,10 +249,55 @@
             <!-- Шаг 2: Выбор услуг -->
             <div id="step2" class="step" style="display: none;">
                 <h2>Выбор услуг</h2>
-                <div id="services-container"></div>
-                <p>Подытог: <span id="total">0₽</span></p>
-                <button id="next2" disabled onclick="nextStep(3)">Подтвердить</button>
+                <div id="services-container">
+    <label>
+        <input type="radio" name="service" value="1" data-price="1750" data-duration="60" onchange="updateTotal()">
+        KCX - Euro (1750₽, 60 мин)
+        <div class="service-description">
+            <div class="description-content">
+                <strong>Евромойка</strong>
+                <ol>
+                    <li>Первичная обработка Multi Star.</li>
+                    <li>Мойка колесных дисков и насадок глушителя.</li>
+                    <li>Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.</li>
+                    <li>Консервация ЛКП Magic Dry & Care.</li>
+                    <li>Полная продувка кузова.</li>
+                </ol>
             </div>
+        </div>
+    </label>
+    <label>
+        <input type="radio" name="service" value="2" data-price="1950" data-duration="90" onchange="updateTotal()">
+        KCX - Nano (1950₽, 90 мин)
+        <div class="service-description">
+            <div class="description-content">
+                <strong>Наномойка</strong>
+                <ol>
+                    <li>Первичная обработка Multi Star.</li>
+                    <li>Мойка колесных дисков и насадок глушителя.</li>
+                    <li>Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.</li>
+                    <li>Полная продувка кузова.</li>
+                </ol>
+            </div>
+        </div>
+    </label>
+    <label>
+        <input type="radio" name="service" value="3" data-price="2270" data-duration="120" onchange="updateTotal()">
+        KCX - Protector (2270₽, 120 мин)
+        <div class="service-description">
+            <div class="description-content">
+                <strong>Керамо-мойка</strong>
+                <ol>
+                    <li>Первичная обработка Multi Star SIO2.</li>
+                    <li>Мойка колесных дисков и насадок глушителя.</li>
+                    <li>Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.</li>
+                    <li>Консервация ЛКП Protector CarWash.</li>
+                    <li>Полная продувка кузова.</li>
+                </ol>
+            </div>
+        </div>
+    </label>
+</div>
 
           <!-- Шаг 3: Выбор даты и времени -->
 <div id="step3" class="step" style="display: none;">
