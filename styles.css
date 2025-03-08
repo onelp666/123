@@ -720,6 +720,32 @@ input[type="tel"]:focus {
 #calendar-grid div:hover {
     background-color: #f0f0f0; /* Светлый фон при наведении */
 }
+/* Стили для описания услуг */
+.service-description {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.service-description.open {
+    max-height: 500px; /* Максимальная высота для плавного раскрытия */
+    opacity: 1;
+}
+
+.description-content {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Стили для радио-кнопок */
+input[type="radio"] {
+    margin-right: 10px;
+}
 
 #calendar-grid div.selected {
     background-color: #000000;
