@@ -613,23 +613,3 @@ document.getElementById('copy-phone-number').addEventListener('click', function 
         console.error('Ошибка при копировании: ', error);
     });
 });
-// Функция для обновления описания при выборе услуги
-function updateServiceDescription() {
-    const services = document.querySelectorAll('input[name="service"]');
-    services.forEach(service => {
-        const description = service.parentElement.querySelector('.service-description');
-        if (service.checked) {
-            description.classList.add('open');
-        } else {
-            description.classList.remove('open');
-        }
-    });
-}
-
-// Добавляем обработчик события change для всех радио-кнопок
-document.querySelectorAll('input[name="service"]').forEach(service => {
-    service.addEventListener('change', updateServiceDescription);
-});
-
-// Обновляем описание при первой загрузке
-updateServiceDescription();
