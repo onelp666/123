@@ -358,6 +358,8 @@ body {
     transition: color 0.3s ease;
 }
 
+
+
 .close-modal:hover {
     color: #56595a;
 }
@@ -386,7 +388,7 @@ body {
 
 .time-slots {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 5px;
     width: 100%;
     max-width: 260px;
@@ -394,12 +396,12 @@ body {
 
 .time-slot {
     width: 100%;
-    padding: 10px;
+    padding: 10px 3px 10px 3px;
     margin: 5px 0;
     border: 2px solid #000000;
     border-radius: 10px;
     background-color: #eeeeee;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: #000000;
     text-align: center;
@@ -424,7 +426,7 @@ body {
     cursor: not-allowed;
 }
 
-button:not(.calendar-header button, .close-calendar) {
+.next {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -438,11 +440,11 @@ button:not(.calendar-header button, .close-calendar) {
     transition: background-color 0.3s ease;
 }
 
-button:not(.calendar-header button, .close-calendar):hover {
+.next:hover {
     background-color: #56595a;
 }
 
-button:not(.calendar-header button, .close-calendar):disabled {
+.next:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
 }
@@ -616,7 +618,6 @@ input[type="tel"]:focus {
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px; /* Уменьшенные отступы */
-    border: 1px solid #ccc; /* Минималистичная рамка */
     border-radius: 6px;
     background-color: #ffffff; /* Белый фон */
     cursor: pointer;
@@ -652,6 +653,21 @@ input[type="tel"]:focus {
     display: none;
 }
 
+#close-calender {
+    position: absolute;
+    right: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    border: none;
+    padding: unset;
+    top: -5px;
+    background: transparent; /* Убираем фон */
+    outline: none; /* Убираем outline при фокусе */
+}
+
 .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -661,35 +677,31 @@ input[type="tel"]:focus {
     font-size: 14px; /* Уменьшенный размер шрифта */
 }
 
-.calendar-header button {
+.change {
     background: none;
     border: none;
     font-size: 16px;
     cursor: pointer;
     color: #000000; /* Черные стрелочки */
-    padding: 0 5px; /* Уменьшенные отступы */
+    padding: 0 25px; /* Уменьшенные отступы */
 }
 
-.calendar-header button:hover {
-    color: #56595a;
-}
-
-.close-calendar {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000000;
-    cursor: pointer;
+.change-month-left {
     background: none;
     border: none;
-    padding: 0px;
-    width: auto;
+    font-size: 16px;
+    cursor: pointer;
+    color: #000000; /* Черные стрелочки */
+    padding: 0 0 0 40px; /* Уменьшенные отступы */
 }
 
-.close-calendar:hover {
-    color: #56595a;
+.change-month-right {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #000000; /* Черные стрелочки */
+    padding: 0 40px 0 0; /* Уменьшенные отступы */
 }
 
 .calendar-days {
