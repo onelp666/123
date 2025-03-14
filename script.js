@@ -274,6 +274,43 @@ function populateServices(services) {
             <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
             ${service.name} (${service.price}₽, ${service.duration} мин)
         `;
+        // Добавляем описание под каждой услугой
+const description = document.createElement('div');
+description.className = 'service-description';
+description.style.fontSize = '12px';
+description.style.color = '#56595a';
+description.style.marginTop = '5px';
+
+// Описание для каждой услуги
+if (service.name === 'KCX - Euro') {
+    description.innerHTML = `
+        <strong>Евромойка</strong><br>
+        1. Первичная обработка Multi Star.<br>
+        2. Мойка колесных дисков и насадок глушителя.<br>
+        3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.<br>
+        4. Консервация ЛКП Magic Dry & Care.<br>
+        5. Полная продувка кузова.
+    `;
+} else if (service.name === 'KCX - Nano') {
+    description.innerHTML = `
+        <strong>Наномойка</strong><br>
+        1. Первичная обработка Multi Star.<br>
+        2. Мойка колесных дисков и насадок глушителя.<br>
+        3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.<br>
+        4. Полная продувка кузова.
+    `;
+} else if (service.name === 'KCX - Protector') {
+    description.innerHTML = `
+        <strong>Керамо-мойка</strong><br>
+        1. Первичная обработка Multi Star SIO2.<br>
+        2. Мойка колесных дисков и насадок глушителя.<br>
+        3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.<br>
+        4. Консервация ЛКП Protector CarWash.<br>
+        5. Полная продувка кузова.
+    `;
+}
+
+label.appendChild(description);
         servicesContainer.appendChild(label);
     });
 }
