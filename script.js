@@ -636,3 +636,50 @@ document.getElementById('copy-phone-number').addEventListener('click', function 
         console.error('Ошибка при копировании: ', error);
     });
 });
+
+// Функция для обновления описания услуг
+function updateServiceDescriptions() {
+    const serviceItems = document.querySelectorAll('.service-item');
+    serviceItems.forEach(item => {
+        const radio = item.querySelector('input[type="radio"]');
+        const description = item.querySelector('.service-description');
+
+        radio.addEventListener('change', () => {
+            // Закрываем все описания
+            serviceItems.forEach(otherItem => {
+                const otherDescription = otherItem.querySelector('.service-description');
+                if (otherDescription !== description) {
+                    otherDescription.classList.remove('open');
+                }
+            });
+
+            // Открываем/закрываем текущее описание
+            if (radio.checked) {
+                description.classList.add('open');
+            } else {
+                description.classList.remove('open');
+            }
+        });
+    });
+}
+
+// Вызов функции после загрузки страницы
+document.addEventListener('DOMContentLoaded', () => {
+    updateServiceDescriptions();
+});
+
+// Обновляем функцию updateTotal, чтобы она учитывала только одну выбранную услугу
+function updateTotal() {
+    const selectedService = document.querySelector('input[name="service"]:checked');
+    if (selectedService) {
+        const total = parseInt(selectedService.dataset.price);
+        const totalDuration = parseInt(selectedService.dataset.duration);
+        document.getElementById('total').textContent = `${total}₽`;
+        populateTimeSlots(totalDuration);
+    } else {
+        document.getElementById('total').textContent = '0₽';
+        const timeSlotsContainer = document.querySelector('.time-slots');
+        timeSlotsContainer.innerHTML = '';
+    }
+    updateConfirmButton();
+}
