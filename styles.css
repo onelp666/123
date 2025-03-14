@@ -766,3 +766,32 @@ input[type="tel"]:focus {
     margin-left: 20px;
     list-style-type: decimal;
 }
+
+/* Стили для описания услуг */
+.service-item {
+    margin-bottom: 10px;
+}
+
+.service-description {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.service-description.open {
+    max-height: 500px; /* Достаточно большое значение для анимации */
+    opacity: 1;
+}
+
+.service-description p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.service-description ol {
+    margin-left: 20px;
+    list-style-type: decimal;
+}
