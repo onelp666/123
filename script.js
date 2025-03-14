@@ -637,49 +637,108 @@ document.getElementById('copy-phone-number').addEventListener('click', function 
     });
 });
 
-// Функция для обновления описания услуг
-function updateServiceDescriptions() {
-    const serviceItems = document.querySelectorAll('.service-item');
-    serviceItems.forEach(item => {
-        const radio = item.querySelector('input[type="radio"]');
-        const description = item.querySelector('.service-description');
+// Добавляем обработчики для выбора услуги и отображения описания
+document.addEventListener('DOMContentLoaded', () => {
+    const servicesContainer = document.getElementById('services-container');
 
-        radio.addEventListener('change', () => {
-            // Закрываем все описания
-            serviceItems.forEach(otherItem => {
-                const otherDescription = otherItem.querySelector('.service-description');
-                if (otherDescription !== description) {
-                    otherDescription.classList.remove('open');
+    servicesContainer.addEventListener('click', (event) => {
+        const serviceCheckbox = event.target.closest('input[type="checkbox"]');
+        if (!serviceCheckbox) return;
+
+        // Снимаем выделение с других чекбоксов
+        document.querySelectorAll('input[name="service"]').forEach(checkbox => {
+            if (checkbox !== serviceCheckbox) {
+                checkbox.checked = false;
+                const description = checkbox.closest('label').querySelector('.service-description');
+                if (description) {
+                    description.style.maxHeight = '0';
+                    description.style.opacity = '0';
                 }
-            });
-
-            // Открываем/закрываем текущее описание
-            if (radio.checked) {
-                description.classList.add('open');
-            } else {
-                description.classList.remove('open');
             }
         });
+
+        // Показываем или скрываем описание выбранной услуги
+        const description = serviceCheckbox.closest('label').querySelector('.service-description');
+        if (description) {
+            if (serviceCheckbox.checked) {
+                description.style.maxHeight = description.scrollHeight + 'px';
+                description.style.opacity = '1';
+            } else {
+                description.style.maxHeight = '0';
+                description.style.opacity = '0';
+            }
+        }
+    });
+});
+
+// Обновляем функцию populateServices, чтобы добавить описание услуг
+function populateServices(services) {
+    const servicesContainer = document.getElementById('services-container');
+    servicesContainer.innerHTML = '';
+
+    if (!services || !Array.isArray(services)) {
+        console.error("Ошибка: services не определен или не является массивом");
+        return;
+    }
+
+    if (services.length === 0) {
+        console.warn("Нет доступных услуг для выбранной модели");
+        servicesContainer.innerHTML = '<p>Услуги для данного авто пока что добавляются, скоро все исправим)</p>';
+        return;
+    }
+
+    services.forEach(service => {
+        const label = document.createElement('label');
+        label.innerHTML = `
+            <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
+            ${service.name} (${service.price}₽, ${service.duration} мин)
+            <div class="service-description" style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.5s ease;">
+                ${getServiceDescription(service.name)}
+            </div>
+        `;
+        servicesContainer.appendChild(label);
     });
 }
 
-// Вызов функции после загрузки страницы
-document.addEventListener('DOMContentLoaded', () => {
-    updateServiceDescriptions();
-});
-
-// Обновляем функцию updateTotal, чтобы она учитывала только одну выбранную услугу
-function updateTotal() {
-    const selectedService = document.querySelector('input[name="service"]:checked');
-    if (selectedService) {
-        const total = parseInt(selectedService.dataset.price);
-        const totalDuration = parseInt(selectedService.dataset.duration);
-        document.getElementById('total').textContent = `${total}₽`;
-        populateTimeSlots(totalDuration);
-    } else {
-        document.getElementById('total').textContent = '0₽';
-        const timeSlotsContainer = document.querySelector('.time-slots');
-        timeSlotsContainer.innerHTML = '';
+// Функция для получения описания услуги по её названию
+function getServiceDescription(serviceName) {
+    switch (serviceName) {
+        case 'KCX - Euro':
+            return `
+                <div style="margin-top: 10px; font-size: 12px; color: #56595a;">
+                    <strong>Описание:</strong><br>
+                    Евромойка<br>
+                    1. Первичная обработка Multi Star.<br>
+                    2. Мойка колесных дисков и насадок глушителя.<br>
+                    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.<br>
+                    4. Консервация ЛКП Magic Dry & Care.<br>
+                    5. Полная продувка кузова.
+                </div>
+            `;
+        case 'KCX - Nano':
+            return `
+                <div style="margin-top: 10px; font-size: 12px; color: #56595a;">
+                    <strong>Описание:</strong><br>
+                    Наномойка<br>
+                    1. Первичная обработка Multi Star.<br>
+                    2. Мойка колесных дисков и насадок глушителя.<br>
+                    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.<br>
+                    4. Полная продувка кузова.
+                </div>
+            `;
+        case 'KCX - Protector':
+            return `
+                <div style="margin-top: 10px; font-size: 12px; color: #56595a;">
+                    <strong>Описание:</strong><br>
+                    Керамо-мойка<br>
+                    1. Первичная обработка Multi Star SIO2.<br>
+                    2. Мойка колесных дисков и насадок глушителя.<br>
+                    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.<br>
+                    4. Консервация ЛКП Protector CarWash.<br>
+                    5. Полная продувка кузова.
+                </div>
+            `;
+        default:
+            return '';
     }
-    updateConfirmButton();
 }
