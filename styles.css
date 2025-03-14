@@ -737,3 +737,10 @@ input[type="tel"]:focus {
     background-color: #000000;
     color: #ffffff;
 }
+
+.service-description {
+    font-size: 12px;
+    color: #56595a;
+    margin-top: 5px;
+    line-height: 1.4;
+}
