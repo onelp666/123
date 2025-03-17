@@ -269,7 +269,7 @@ function populateServices(services) {
     }
 
     services.forEach(service => {
-       // Создаем контейнер для услуги
+// Создаем контейнер для услуги
 const serviceContainer = document.createElement('div');
 serviceContainer.className = 'service-container';
 serviceContainer.style.marginBottom = '10px';
@@ -296,59 +296,60 @@ questionIcon.style.color = '#fff';
 questionIcon.style.textAlign = 'center';
 questionIcon.style.lineHeight = '20px';
 questionIcon.style.fontSize = '14px';
-        // Создаем блок для описания услуги
-        const description = document.createElement('div');
-        description.className = 'service-description';
-        description.style.display = 'none'; // Скрываем описание по умолчанию
-        description.style.fontSize = '12px';
-        description.style.color = '#56595a';
-        description.style.marginTop = '5px';
-        description.style.padding = '10px';
-        description.style.backgroundColor = '#f5f5f5';
-        description.style.borderRadius = '5px';
+        
+// Создаем блок для описания услуги
+const description = document.createElement('div');
+description.className = 'service-description';
+description.style.display = 'none'; // Скрываем описание по умолчанию
+description.style.fontSize = '12px';
+description.style.color = '#56595a';
+description.style.marginTop = '5px';
+description.style.padding = '10px';
+description.style.backgroundColor = '#f5f5f5';
+description.style.borderRadius = '5px';
 
-        // Описание для каждой услуги
-        if (service.name === 'KCX - Euro') {
-            description.innerHTML = `
-                <strong>Евромойка</strong><br>
-                1. Первичная обработка Multi Star.<br>
-                2. Мойка колесных дисков и насадок глушителя.<br>
-                3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.<br>
-                4. Консервация ЛКП Magic Dry & Care.<br>
-                5. Полная продувка кузова.
-            `;
-        } else if (service.name === 'KCX - Nano') {
-            description.innerHTML = `
-                <strong>Наномойка</strong><br>
-                1. Первичная обработка Multi Star.<br>
-                2. Мойка колесных дисков и насадок глушителя.<br>
-                3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.<br>
-                4. Полная продувка кузова.
-            `;
-        } else if (service.name === 'KCX - Protector') {
-            description.innerHTML = `
-                <strong>Керамо-мойка</strong><br>
-                1. Первичная обработка Multi Star SIO2.<br>
-                2. Мойка колесных дисков и насадок глушителя.<br>
-                3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.<br>
-                4. Консервация ЛКП Protector CarWash.<br>
-                5. Полная продувка кузова.
-            `;
-        }
+       // Добавляем описание для каждой услуги
+if (service.name === 'KCX - Euro') {
+  description.innerHTML = `
+    <strong>Евромойка</strong><br>
+    1. Первичная обработка Multi Star.<br>
+    2. Мойка колесных дисков и насадок глушителя.<br>
+    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.<br>
+    4. Консервация ЛКП Magic Dry & Care.<br>
+    5. Полная продувка кузова.
+  `;
+} else if (service.name === 'KCX - Nano') {
+  description.innerHTML = `
+    <strong>Наномойка</strong><br>
+    1. Первичная обработка Multi Star.<br>
+    2. Мойка колесных дисков и насадок глушителя.<br>
+    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.<br>
+    4. Полная продувка кузова.
+  `;
+} else if (service.name === 'KCX - Protector') {
+  description.innerHTML = `
+    <strong>Керамо-мойка</strong><br>
+    1. Первичная обработка Multi Star SIO2.<br>
+    2. Мойка колесных дисков и насадок глушителя.<br>
+    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.<br>
+    4. Консервация ЛКП Protector CarWash.<br>
+    5. Полная продувка кузова.
+  `;
+}
 
-        // Обработчик клика на значок с вопросом
-        questionIcon.addEventListener('click', (event) => {
-            event.stopPropagation(); // Останавливаем всплытие события
-            description.style.display = description.style.display === 'none' ? 'block' : 'none';
-        });
+// Обработчик клика на значок с вопросом
+questionIcon.addEventListener('click', (event) => {
+  event.stopPropagation(); // Останавливаем всплытие события
+  description.style.display = description.style.display === 'none' ? 'block' : 'none';
+});
 
-    // Добавляем label и значок в контейнер услуги
+// Добавляем label, значок и описание в контейнер услуги
 serviceContainer.appendChild(label);
 serviceContainer.appendChild(questionIcon);
+serviceContainer.appendChild(description);
 
 // Добавляем контейнер услуги в общий контейнер услуг
 servicesContainer.appendChild(serviceContainer);
-    });
 
     // Закрываем описание при клике вне области
     document.addEventListener('click', (event) => {
