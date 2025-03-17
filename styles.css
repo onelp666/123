@@ -768,3 +768,28 @@ input[type="tel"]:focus {
     background-color: #f5f5f5;
     border-radius: 5px;
 }
+
+
+.service-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Расстояние между текстом и значком */
+}
+
+.question-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ccc; /* Серый цвет */
+  color: #fff;
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.question-icon:hover {
+  background-color: #999; /* Темнее серый при наведении */
+}
