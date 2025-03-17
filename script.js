@@ -269,7 +269,7 @@ function populateServices(services) {
     }
 
     services.forEach(service => {
-// Создаем контейнер для услуги
+        // Создаем контейнер для услуги
 const serviceContainer = document.createElement('div');
 serviceContainer.className = 'service-container';
 serviceContainer.style.marginBottom = '10px';
@@ -296,7 +296,7 @@ questionIcon.style.color = '#fff';
 questionIcon.style.textAlign = 'center';
 questionIcon.style.lineHeight = '20px';
 questionIcon.style.fontSize = '14px';
-        
+
 // Создаем блок для описания услуги
 const description = document.createElement('div');
 description.className = 'service-description';
@@ -308,7 +308,7 @@ description.style.padding = '10px';
 description.style.backgroundColor = '#f5f5f5';
 description.style.borderRadius = '5px';
 
-       // Добавляем описание для каждой услуги
+// Добавляем описание для каждой услуги
 if (service.name === 'KCX - Euro') {
   description.innerHTML = `
     <strong>Евромойка</strong><br>
@@ -350,6 +350,7 @@ serviceContainer.appendChild(description);
 
 // Добавляем контейнер услуги в общий контейнер услуг
 servicesContainer.appendChild(serviceContainer);
+    });
 
     // Закрываем описание при клике вне области
     document.addEventListener('click', (event) => {
