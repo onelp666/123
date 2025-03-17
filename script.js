@@ -189,7 +189,6 @@ function resetModal() {
     updateDateDisplay(); // Обновляем отображение даты
     renderCalendar(selectedDate); // Перерисовываем календарь
 
-
     const timeSlotsContainer = document.querySelector('.time-slots');
     timeSlotsContainer.innerHTML = '';
 
@@ -270,86 +269,86 @@ function populateServices(services) {
 
     services.forEach(service => {
         // Создаем контейнер для услуги
-const serviceContainer = document.createElement('div');
-serviceContainer.className = 'service-container';
-serviceContainer.style.marginBottom = '10px';
+        const serviceContainer = document.createElement('div');
+        serviceContainer.className = 'service-container';
+        serviceContainer.style.marginBottom = '10px';
 
-// Создаем label для чекбокса
-const label = document.createElement('label');
-label.innerHTML = `
-  <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
-  ${service.name} (${service.price}₽, ${service.duration} мин)
-`;
+        // Создаем label для чекбокса
+        const label = document.createElement('label');
+        label.innerHTML = `
+            <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
+            ${service.name} (${service.price}₽, ${service.duration} мин)
+        `;
 
-// Добавляем значок с вопросом
-const questionIcon = document.createElement('div');
-questionIcon.className = 'question-icon';
-questionIcon.innerHTML = '?';
-questionIcon.style.cursor = 'pointer';
-questionIcon.style.marginLeft = '10px';
-questionIcon.style.display = 'inline-block';
-questionIcon.style.width = '20px';
-questionIcon.style.height = '20px';
-questionIcon.style.borderRadius = '50%';
-questionIcon.style.backgroundColor = '#ccc'; // Серый цвет
-questionIcon.style.color = '#fff';
-questionIcon.style.textAlign = 'center';
-questionIcon.style.lineHeight = '20px';
-questionIcon.style.fontSize = '14px';
+        // Добавляем значок с вопросом
+        const questionIcon = document.createElement('div');
+        questionIcon.className = 'question-icon';
+        questionIcon.innerHTML = '?';
+        questionIcon.style.cursor = 'pointer';
+        questionIcon.style.marginLeft = '10px';
+        questionIcon.style.display = 'inline-block';
+        questionIcon.style.width = '20px';
+        questionIcon.style.height = '20px';
+        questionIcon.style.borderRadius = '50%';
+        questionIcon.style.backgroundColor = '#ccc'; // Серый цвет
+        questionIcon.style.color = '#fff';
+        questionIcon.style.textAlign = 'center';
+        questionIcon.style.lineHeight = '20px';
+        questionIcon.style.fontSize = '14px';
 
-// Создаем блок для описания услуги
-const description = document.createElement('div');
-description.className = 'service-description';
-description.style.display = 'none'; // Скрываем описание по умолчанию
-description.style.fontSize = '12px';
-description.style.color = '#56595a';
-description.style.marginTop = '5px';
-description.style.padding = '10px';
-description.style.backgroundColor = '#f5f5f5';
-description.style.borderRadius = '5px';
+        // Создаем блок для описания услуги
+        const description = document.createElement('div');
+        description.className = 'service-description';
+        description.style.display = 'none'; // Скрываем описание по умолчанию
+        description.style.fontSize = '12px';
+        description.style.color = '#56595a';
+        description.style.marginTop = '5px';
+        description.style.padding = '10px';
+        description.style.backgroundColor = '#f5f5f5';
+        description.style.borderRadius = '5px';
 
-// Добавляем описание для каждой услуги
-if (service.name === 'KCX - Euro') {
-  description.innerHTML = `
-    <strong>Евромойка</strong><br>
-    1. Первичная обработка Multi Star.<br>
-    2. Мойка колесных дисков и насадок глушителя.<br>
-    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.<br>
-    4. Консервация ЛКП Magic Dry & Care.<br>
-    5. Полная продувка кузова.
-  `;
-} else if (service.name === 'KCX - Nano') {
-  description.innerHTML = `
-    <strong>Наномойка</strong><br>
-    1. Первичная обработка Multi Star.<br>
-    2. Мойка колесных дисков и насадок глушителя.<br>
-    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.<br>
-    4. Полная продувка кузова.
-  `;
-} else if (service.name === 'KCX - Protector') {
-  description.innerHTML = `
-    <strong>Керамо-мойка</strong><br>
-    1. Первичная обработка Multi Star SIO2.<br>
-    2. Мойка колесных дисков и насадок глушителя.<br>
-    3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.<br>
-    4. Консервация ЛКП Protector CarWash.<br>
-    5. Полная продувка кузова.
-  `;
-}
+        // Добавляем описание для каждой услуги
+        if (service.name === 'KCX - Euro') {
+            description.innerHTML = `
+                <strong>Евромойка</strong><br>
+                1. Первичная обработка Multi Star.<br>
+                2. Мойка колесных дисков и насадок глушителя.<br>
+                3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Twin Shampoo.<br>
+                4. Консервация ЛКП Magic Dry & Care.<br>
+                5. Полная продувка кузова.
+            `;
+        } else if (service.name === 'KCX - Nano') {
+            description.innerHTML = `
+                <strong>Наномойка</strong><br>
+                1. Первичная обработка Multi Star.<br>
+                2. Мойка колесных дисков и насадок глушителя.<br>
+                3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) Nano Magic Shampoo.<br>
+                4. Полная продувка кузова.
+            `;
+        } else if (service.name === 'KCX - Protector') {
+            description.innerHTML = `
+                <strong>Керамо-мойка</strong><br>
+                1. Первичная обработка Multi Star SIO2.<br>
+                2. Мойка колесных дисков и насадок глушителя.<br>
+                3. Мойка пористой губкой и шампунем, (арки, пороги, коврики) ACID SHAMPOO.<br>
+                4. Консервация ЛКП Protector CarWash.<br>
+                5. Полная продувка кузова.
+            `;
+        }
 
-// Обработчик клика на значок с вопросом
-questionIcon.addEventListener('click', (event) => {
-  event.stopPropagation(); // Останавливаем всплытие события
-  description.style.display = description.style.display === 'none' ? 'block' : 'none';
-});
+        // Обработчик клика на значок с вопросом
+        questionIcon.addEventListener('click', (event) => {
+            event.stopPropagation(); // Останавливаем всплытие события
+            description.style.display = description.style.display === 'none' ? 'block' : 'none';
+        });
 
-// Добавляем label, значок и описание в контейнер услуги
-serviceContainer.appendChild(label);
-serviceContainer.appendChild(questionIcon);
-serviceContainer.appendChild(description);
+        // Добавляем label, значок и описание в контейнер услуги
+        serviceContainer.appendChild(label);
+        serviceContainer.appendChild(questionIcon);
+        serviceContainer.appendChild(description);
 
-// Добавляем контейнер услуги в общий контейнер услуг
-servicesContainer.appendChild(serviceContainer);
+        // Добавляем контейнер услуги в общий контейнер услуг
+        servicesContainer.appendChild(serviceContainer);
     });
 
     // Закрываем описание при клике вне области
