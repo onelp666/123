@@ -313,7 +313,7 @@ function populateServices(services) {
             `;
         }
 
-        questionIcon.addEventListener('click', (event) => {
+     questionIcon.addEventListener('click', (event) => {
     event.stopPropagation();
 
     // Закрываем все открытые описания
@@ -330,6 +330,7 @@ function populateServices(services) {
 
         // Позиционируем описание рядом с иконкой вопроса
         const iconRect = questionIcon.getBoundingClientRect();
+        const bodyRect = document.body.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
@@ -337,14 +338,24 @@ function populateServices(services) {
         let left = iconRect.left + window.scrollX;
         let top = iconRect.bottom + window.scrollY;
 
-        // Проверяем, чтобы окно не выходило за правый край экрана
-        if (left + description.offsetWidth > viewportWidth) {
-            left = viewportWidth - description.offsetWidth - 20; // Отступ от правого края
+        // Проверяем, чтобы окно не выходило за правый край body
+        if (left + description.offsetWidth > bodyRect.right) {
+            left = bodyRect.right - description.offsetWidth - 20; // Отступ от правого края
         }
 
-        // Проверяем, чтобы окно не выходило за нижний край экрана
-        if (top + description.offsetHeight > viewportHeight) {
-            top = viewportHeight - description.offsetHeight - 20; // Отступ от нижнего края
+        // Проверяем, чтобы окно не выходило за нижний край body
+        if (top + description.offsetHeight > bodyRect.bottom) {
+            top = bodyRect.bottom - description.offsetHeight - 20; // Отступ от нижнего края
+        }
+
+        // Проверяем, чтобы окно не выходило за левый край body
+        if (left < bodyRect.left) {
+            left = bodyRect.left + 20; // Отступ от левого края
+        }
+
+        // Проверяем, чтобы окно не выходило за верхний край body
+        if (top < bodyRect.top) {
+            top = bodyRect.top + 20; // Отступ от верхнего края
         }
 
         description.style.left = `${left}px`;
