@@ -269,34 +269,33 @@ function populateServices(services) {
     }
 
     services.forEach(service => {
-        // Создаем контейнер для услуги
-        const serviceContainer = document.createElement('div');
-        serviceContainer.className = 'service-container';
-        serviceContainer.style.marginBottom = '10px';
+       // Создаем контейнер для услуги
+const serviceContainer = document.createElement('div');
+serviceContainer.className = 'service-container';
+serviceContainer.style.marginBottom = '10px';
 
-        // Создаем label для чекбокса
-        const label = document.createElement('label');
-        label.innerHTML = `
-            <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
-            ${service.name} (${service.price}₽, ${service.duration} мин)
-        `;
+// Создаем label для чекбокса
+const label = document.createElement('label');
+label.innerHTML = `
+  <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
+  ${service.name} (${service.price}₽, ${service.duration} мин)
+`;
 
-        // Добавляем значок с вопросом
-        const questionIcon = document.createElement('div');
-        questionIcon.className = 'question-icon';
-        questionIcon.innerHTML = '?';
-        questionIcon.style.cursor = 'pointer';
-        questionIcon.style.marginLeft = '10px';
-        questionIcon.style.display = 'inline-block';
-        questionIcon.style.width = '20px';
-        questionIcon.style.height = '20px';
-        questionIcon.style.borderRadius = '50%';
-        questionIcon.style.backgroundColor = '#000';
-        questionIcon.style.color = '#fff';
-        questionIcon.style.textAlign = 'center';
-        questionIcon.style.lineHeight = '20px';
-        questionIcon.style.fontSize = '14px';
-
+// Добавляем значок с вопросом
+const questionIcon = document.createElement('div');
+questionIcon.className = 'question-icon';
+questionIcon.innerHTML = '?';
+questionIcon.style.cursor = 'pointer';
+questionIcon.style.marginLeft = '10px';
+questionIcon.style.display = 'inline-block';
+questionIcon.style.width = '20px';
+questionIcon.style.height = '20px';
+questionIcon.style.borderRadius = '50%';
+questionIcon.style.backgroundColor = '#ccc'; // Серый цвет
+questionIcon.style.color = '#fff';
+questionIcon.style.textAlign = 'center';
+questionIcon.style.lineHeight = '20px';
+questionIcon.style.fontSize = '14px';
         // Создаем блок для описания услуги
         const description = document.createElement('div');
         description.className = 'service-description';
@@ -343,13 +342,12 @@ function populateServices(services) {
             description.style.display = description.style.display === 'none' ? 'block' : 'none';
         });
 
-        // Добавляем label, значок и описание в контейнер услуги
-        serviceContainer.appendChild(label);
-        serviceContainer.appendChild(questionIcon);
-        serviceContainer.appendChild(description);
+    // Добавляем label и значок в контейнер услуги
+serviceContainer.appendChild(label);
+serviceContainer.appendChild(questionIcon);
 
-        // Добавляем контейнер услуги в общий контейнер услуг
-        servicesContainer.appendChild(serviceContainer);
+// Добавляем контейнер услуги в общий контейнер услуг
+servicesContainer.appendChild(serviceContainer);
     });
 
     // Закрываем описание при клике вне области
@@ -696,7 +694,7 @@ function saveAppointmentToLocalStorage(appointment) {
     appointments.push(appointment);
     localStorage.setItem('appointments', JSON.stringify(appointments));
     console.log('Запись сохранена в LocalStorage:', appointment);
-});
+}
 
 document.querySelector('.number').addEventListener('click', function () {
     document.getElementById('phone-modal').style.display = 'flex';
