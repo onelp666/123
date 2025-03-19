@@ -738,13 +738,6 @@ input[type="tel"]:focus {
     color: #ffffff;
 }
 
-.service-description {
-    font-size: 12px;
-    color: #56595a;
-    margin-top: 5px;
-    line-height: 1.4;
-}
-
 .question-icon {
     cursor: pointer;
     margin-left: 10px;
@@ -752,7 +745,7 @@ input[type="tel"]:focus {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #000;
+    background-color: #ccc;
     color: #fff;
     text-align: center;
     line-height: 20px;
@@ -760,15 +753,19 @@ input[type="tel"]:focus {
 }
 
 .service-description {
-    display: none; /* Скрываем описание по умолчанию */
-    font-size: 12px;
-    color: #56595a;
-    margin-top: 5px;
+    display: none;
+    position: fixed; /* Используем fixed для позиционирования относительно окна браузера */
+    background-color: rgba(255, 255, 255, 0.95); /* Полупрозрачный белый фон */
+    border: 1px solid #ccc;
     padding: 10px;
-    background-color: #f5f5f5;
     border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10000; /* Высокий z-index, чтобы было поверх всех элементов */
+    max-width: 300px;
+    font-size: 14px;
+    color: #333;
+    pointer-events: auto; /* Чтобы окно могло взаимодействовать с пользователем */
 }
-
 
 .service-container {
   display: flex;
