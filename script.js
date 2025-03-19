@@ -696,7 +696,7 @@ function saveAppointmentToLocalStorage(appointment) {
     appointments.push(appointment);
     localStorage.setItem('appointments', JSON.stringify(appointments));
     console.log('Запись сохранена в LocalStorage:', appointment);
-}
+});
 
 document.querySelector('.number').addEventListener('click', function () {
     document.getElementById('phone-modal').style.display = 'flex';
