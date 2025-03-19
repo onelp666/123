@@ -271,6 +271,7 @@ function populateServices(services) {
         const serviceContainer = document.createElement('div');
         serviceContainer.className = 'service-container';
         serviceContainer.style.marginBottom = '10px';
+        serviceContainer.style.position = 'relative'; // Делаем контейнер относительным для позиционирования описания
 
         const label = document.createElement('label');
         label.innerHTML = `
@@ -284,6 +285,10 @@ function populateServices(services) {
 
         const description = document.createElement('div');
         description.className = 'service-description';
+        description.style.position = 'absolute'; // Абсолютное позиционирование относительно контейнера
+        description.style.top = '100%'; // Размещаем описание под иконкой
+        description.style.left = '0'; // Выравниваем по левому краю иконки
+        description.style.display = 'none'; // Скрываем по умолчанию
 
         if (service.name === 'KCX - Euro') {
             description.innerHTML = `
@@ -327,28 +332,6 @@ function populateServices(services) {
             // Показываем или скрываем текущее описание
             if (description.style.display === 'none' || !description.style.display) {
                 description.style.display = 'block';
-
-                // Позиционируем описание рядом с иконкой вопроса
-                const iconRect = questionIcon.getBoundingClientRect();
-                const scrollY = window.scrollY; // Учитываем прокрутку страницы
-                const scrollX = window.scrollX; // Учитываем горизонтальную прокрутку
-
-                // Рассчитываем позицию окна
-                let left = iconRect.left + scrollX;
-                let top = iconRect.bottom + scrollY;
-
-                // Проверяем, чтобы окно не выходило за правый край экрана
-                if (left + description.offsetWidth > window.innerWidth) {
-                    left = window.innerWidth - description.offsetWidth - 20; // Отступ от правого края
-                }
-
-                // Проверяем, чтобы окно не выходило за нижний край экрана
-                if (top + description.offsetHeight > window.innerHeight + scrollY) {
-                    top = iconRect.top + scrollY - description.offsetHeight - 10; // Показываем выше иконки
-                }
-
-                description.style.left = `${left}px`;
-                description.style.top = `${top}px`;
             } else {
                 description.style.display = 'none';
             }
@@ -356,15 +339,15 @@ function populateServices(services) {
 
         serviceContainer.appendChild(label);
         serviceContainer.appendChild(questionIcon);
+        serviceContainer.appendChild(description); // Добавляем описание внутрь контейнера
         servicesContainer.appendChild(serviceContainer);
-        document.body.appendChild(description); // Добавляем описание в body, чтобы оно было поверх всех элементов
     });
 
     // Закрываем описание при клике вне его области
     document.addEventListener('click', (event) => {
         const descriptions = document.querySelectorAll('.service-description');
         descriptions.forEach(desc => {
-            if (!desc.contains(event.target) && !desc.previousElementSibling?.contains(event.target)) {
+            if (!desc.contains(event.target) && !desc.parentElement.contains(event.target)) {
                 desc.style.display = 'none';
             }
         });
