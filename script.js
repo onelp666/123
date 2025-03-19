@@ -314,28 +314,45 @@ function populateServices(services) {
         }
 
         questionIcon.addEventListener('click', (event) => {
-            event.stopPropagation();
+    event.stopPropagation();
 
-            // Закрываем все открытые описания
-            const allDescriptions = document.querySelectorAll('.service-description');
-            allDescriptions.forEach(desc => {
-                if (desc !== description) {
-                    desc.style.display = 'none';
-                }
-            });
+    // Закрываем все открытые описания
+    const allDescriptions = document.querySelectorAll('.service-description');
+    allDescriptions.forEach(desc => {
+        if (desc !== description) {
+            desc.style.display = 'none';
+        }
+    });
 
-            // Показываем или скрываем текущее описание
-            if (description.style.display === 'none' || !description.style.display) {
-                description.style.display = 'block';
+    // Показываем или скрываем текущее описание
+    if (description.style.display === 'none' || !description.style.display) {
+        description.style.display = 'block';
 
-                // Позиционируем описание рядом с иконкой вопроса
-                const iconRect = questionIcon.getBoundingClientRect();
-                description.style.top = `${iconRect.bottom + window.scrollY}px`; // Позиция под иконкой
-                description.style.left = `${iconRect.left + window.scrollX}px`; // Выравнивание по левому краю
-            } else {
-                description.style.display = 'none';
-            }
-        });
+        // Позиционируем описание рядом с иконкой вопроса
+        const iconRect = questionIcon.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        // Рассчитываем позицию окна
+        let left = iconRect.left + window.scrollX;
+        let top = iconRect.bottom + window.scrollY;
+
+        // Проверяем, чтобы окно не выходило за правый край экрана
+        if (left + description.offsetWidth > viewportWidth) {
+            left = viewportWidth - description.offsetWidth - 20; // Отступ от правого края
+        }
+
+        // Проверяем, чтобы окно не выходило за нижний край экрана
+        if (top + description.offsetHeight > viewportHeight) {
+            top = viewportHeight - description.offsetHeight - 20; // Отступ от нижнего края
+        }
+
+        description.style.left = `${left}px`;
+        description.style.top = `${top}px`;
+    } else {
+        description.style.display = 'none';
+    }
+});
 
         serviceContainer.appendChild(label);
         serviceContainer.appendChild(questionIcon);
