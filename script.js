@@ -1,6 +1,6 @@
 // ------------ Глобальные переменные ------------
 let db; // База данных
-let selectedDate = new Date(); // Выбранная дата
+let selectedDate = new Date();
 
 // ------------ Функции календаря ------------
 function updateDateDisplay() {
