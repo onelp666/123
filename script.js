@@ -281,21 +281,9 @@ function populateServices(services) {
         const questionIcon = document.createElement('div');
         questionIcon.className = 'question-icon';
         questionIcon.innerHTML = '?';
-        questionIcon.style.cursor = 'pointer';
-        questionIcon.style.marginLeft = '10px';
-        questionIcon.style.display = 'inline-block';
-        questionIcon.style.width = '20px';
-        questionIcon.style.height = '20px';
-        questionIcon.style.borderRadius = '50%';
-        questionIcon.style.backgroundColor = '#ccc';
-        questionIcon.style.color = '#fff';
-        questionIcon.style.textAlign = 'center';
-        questionIcon.style.lineHeight = '20px';
-        questionIcon.style.fontSize = '14px';
 
         const description = document.createElement('div');
         description.className = 'service-description';
-        description.style.display = 'none';
 
         if (service.name === 'KCX - Euro') {
             description.innerHTML = `
@@ -327,25 +315,39 @@ function populateServices(services) {
 
         questionIcon.addEventListener('click', (event) => {
             event.stopPropagation();
+
+            // Закрываем все открытые описания
             const allDescriptions = document.querySelectorAll('.service-description');
             allDescriptions.forEach(desc => {
                 if (desc !== description) {
                     desc.style.display = 'none';
                 }
             });
-            description.style.display = description.style.display === 'none' ? 'block' : 'none';
+
+            // Показываем или скрываем текущее описание
+            if (description.style.display === 'none' || !description.style.display) {
+                description.style.display = 'block';
+
+                // Позиционируем описание рядом с иконкой вопроса
+                const iconRect = questionIcon.getBoundingClientRect();
+                description.style.top = `${iconRect.top + window.scrollY}px`;
+                description.style.left = `${iconRect.right + window.scrollX + 10}px`; // 10px отступ от иконки
+            } else {
+                description.style.display = 'none';
+            }
         });
 
         serviceContainer.appendChild(label);
         serviceContainer.appendChild(questionIcon);
-        serviceContainer.appendChild(description);
         servicesContainer.appendChild(serviceContainer);
+        document.body.appendChild(description); // Добавляем описание в body, чтобы оно было поверх всех элементов
     });
 
+    // Закрываем описание при клике вне его области
     document.addEventListener('click', (event) => {
         const descriptions = document.querySelectorAll('.service-description');
         descriptions.forEach(desc => {
-            if (!desc.contains(event.target) && !desc.previousElementSibling.contains(event.target)) {
+            if (!desc.contains(event.target) && !desc.previousElementSibling?.contains(event.target)) {
                 desc.style.display = 'none';
             }
         });
