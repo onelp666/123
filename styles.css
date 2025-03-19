@@ -754,8 +754,8 @@ input[type="tel"]:focus {
 
 .service-description {
     display: none;
-    position: fixed; /* Используем fixed для позиционирования относительно окна браузера */
-    background-color: rgba(255, 255, 255, 0.95); /* Полупрозрачный белый фон */
+    position: fixed; /* Фиксированное позиционирование */
+    background-color: rgba(96, 96, 96, 0.95); /* Серый фон с прозрачностью */
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
@@ -763,8 +763,16 @@ input[type="tel"]:focus {
     z-index: 10000; /* Высокий z-index, чтобы было поверх всех элементов */
     max-width: 300px;
     font-size: 14px;
-    color: #333;
+    color: #fff; /* Белый текст для контраста */
     pointer-events: auto; /* Чтобы окно могло взаимодействовать с пользователем */
+    opacity: 0.9; /* Легкая прозрачность */
+    margin-right: 20px; /* Отступ от правого края */
+    max-height: 80vh; /* Максимальная высота, чтобы не выходить за границы экрана */
+    overflow-y: auto; /* Добавляем прокрутку, если контент не помещается */
+    left: auto; /* Сбрасываем left */
+    right: 20px; /* Отступ от правого края */
+    top: 50%; /* Позиционируем по центру вертикально */
+    transform: translateY(-50%); /* Смещаем на половину высоты окна вверх */
 }
 
 .service-container {
