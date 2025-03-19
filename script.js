@@ -330,8 +330,8 @@ function populateServices(services) {
 
                 // Позиционируем описание рядом с иконкой вопроса
                 const iconRect = questionIcon.getBoundingClientRect();
-                description.style.top = `${iconRect.top + window.scrollY}px`;
-                description.style.left = `${iconRect.right + window.scrollX + 10}px`; // 10px отступ от иконки
+                description.style.top = `${iconRect.bottom + window.scrollY}px`; // Позиция под иконкой
+                description.style.left = `${iconRect.left + window.scrollX}px`; // Выравнивание по левому краю
             } else {
                 description.style.display = 'none';
             }
