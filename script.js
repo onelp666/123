@@ -313,48 +313,52 @@ function populateServices(services) {
             `;
         }
 
-questionIcon.addEventListener('click', (event) => {
-    event.stopPropagation();
+        questionIcon.addEventListener('click', (event) => {
+            event.stopPropagation();
 
-    // Закрываем все открытые описания
-    const allDescriptions = document.querySelectorAll('.service-description');
-    allDescriptions.forEach(desc => {
-        if (desc !== description) {
-            desc.style.display = 'none';
-        }
+            // Закрываем все открытые описания
+            const allDescriptions = document.querySelectorAll('.service-description');
+            allDescriptions.forEach(desc => {
+                if (desc !== description) {
+                    desc.style.display = 'none';
+                }
+            });
+
+            // Показываем или скрываем текущее описание
+            if (description.style.display === 'none' || !description.style.display) {
+                description.style.display = 'block';
+
+                // Позиционируем описание рядом с иконкой вопроса
+                const iconRect = questionIcon.getBoundingClientRect();
+                const scrollY = window.scrollY; // Учитываем прокрутку страницы
+                const scrollX = window.scrollX; // Учитываем горизонтальную прокрутку
+
+                // Рассчитываем позицию окна
+                let left = iconRect.left + scrollX;
+                let top = iconRect.bottom + scrollY;
+
+                // Проверяем, чтобы окно не выходило за правый край экрана
+                if (left + description.offsetWidth > window.innerWidth) {
+                    left = window.innerWidth - description.offsetWidth - 20; // Отступ от правого края
+                }
+
+                // Проверяем, чтобы окно не выходило за нижний край экрана
+                if (top + description.offsetHeight > window.innerHeight + scrollY) {
+                    top = iconRect.top + scrollY - description.offsetHeight - 10; // Показываем выше иконки
+                }
+
+                description.style.left = `${left}px`;
+                description.style.top = `${top}px`;
+            } else {
+                description.style.display = 'none';
+            }
+        });
+
+        serviceContainer.appendChild(label);
+        serviceContainer.appendChild(questionIcon);
+        servicesContainer.appendChild(serviceContainer);
+        document.body.appendChild(description); // Добавляем описание в body, чтобы оно было поверх всех элементов
     });
-
-    // Показываем или скрываем текущее описание
-    if (description.style.display === 'none' || !description.style.display) {
-        description.style.display = 'block';
-        blurOverlay.style.display = 'block'; // Показываем размытый фон
-
-        // Позиционируем описание рядом с иконкой вопроса
-        const iconRect = questionIcon.getBoundingClientRect();
-        const scrollY = window.scrollY; // Учитываем прокрутку страницы
-        const scrollX = window.scrollX; // Учитываем горизонтальную прокрутку
-
-        // Рассчитываем позицию окна
-        let left = iconRect.left + scrollX;
-        let top = iconRect.bottom + scrollY;
-
-        // Проверяем, чтобы окно не выходило за правый край экрана
-        if (left + description.offsetWidth > window.innerWidth) {
-            left = window.innerWidth - description.offsetWidth - 20; // Отступ от правого края
-        }
-
-        // Проверяем, чтобы окно не выходило за нижний край экрана
-        if (top + description.offsetHeight > window.innerHeight + scrollY) {
-            top = iconRect.top + scrollY - description.offsetHeight - 10; // Показываем выше иконки
-        }
-
-        description.style.left = `${left}px`;
-        description.style.top = `${top}px`;
-    } else {
-        description.style.display = 'none';
-        blurOverlay.style.display = 'none'; // Скрываем размытый фон
-    }
-});
 
     // Закрываем описание при клике вне его области
     document.addEventListener('click', (event) => {
