@@ -189,7 +189,6 @@ function resetModal() {
     updateDateDisplay(); // Обновляем отображение даты
     renderCalendar(selectedDate); // Перерисовываем календарь
 
-
     const timeSlotsContainer = document.querySelector('.time-slots');
     timeSlotsContainer.innerHTML = '';
 
@@ -269,45 +268,35 @@ function populateServices(services) {
     }
 
     services.forEach(service => {
-       // Создаем контейнер для услуги
-const serviceContainer = document.createElement('div');
-serviceContainer.className = 'service-container';
-serviceContainer.style.marginBottom = '10px';
+        const serviceContainer = document.createElement('div');
+        serviceContainer.className = 'service-container';
+        serviceContainer.style.marginBottom = '10px';
 
-// Создаем label для чекбокса
-const label = document.createElement('label');
-label.innerHTML = `
-  <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
-  ${service.name} (${service.price}₽, ${service.duration} мин)
-`;
+        const label = document.createElement('label');
+        label.innerHTML = `
+            <input type="checkbox" name="service" value="${service.id}" data-price="${service.price}" data-duration="${service.duration}" onchange="updateTotal()">
+            ${service.name} (${service.price}₽, ${service.duration} мин)
+        `;
 
-// Добавляем значок с вопросом
-const questionIcon = document.createElement('div');
-questionIcon.className = 'question-icon';
-questionIcon.innerHTML = '?';
-questionIcon.style.cursor = 'pointer';
-questionIcon.style.marginLeft = '10px';
-questionIcon.style.display = 'inline-block';
-questionIcon.style.width = '20px';
-questionIcon.style.height = '20px';
-questionIcon.style.borderRadius = '50%';
-questionIcon.style.backgroundColor = '#ccc'; // Серый цвет
-questionIcon.style.color = '#fff';
-questionIcon.style.textAlign = 'center';
-questionIcon.style.lineHeight = '20px';
-questionIcon.style.fontSize = '14px';
-        // Создаем блок для описания услуги
+        const questionIcon = document.createElement('div');
+        questionIcon.className = 'question-icon';
+        questionIcon.innerHTML = '?';
+        questionIcon.style.cursor = 'pointer';
+        questionIcon.style.marginLeft = '10px';
+        questionIcon.style.display = 'inline-block';
+        questionIcon.style.width = '20px';
+        questionIcon.style.height = '20px';
+        questionIcon.style.borderRadius = '50%';
+        questionIcon.style.backgroundColor = '#ccc';
+        questionIcon.style.color = '#fff';
+        questionIcon.style.textAlign = 'center';
+        questionIcon.style.lineHeight = '20px';
+        questionIcon.style.fontSize = '14px';
+
         const description = document.createElement('div');
         description.className = 'service-description';
-        description.style.display = 'none'; // Скрываем описание по умолчанию
-        description.style.fontSize = '12px';
-        description.style.color = '#56595a';
-        description.style.marginTop = '5px';
-        description.style.padding = '10px';
-        description.style.backgroundColor = '#f5f5f5';
-        description.style.borderRadius = '5px';
+        description.style.display = 'none';
 
-        // Описание для каждой услуги
         if (service.name === 'KCX - Euro') {
             description.innerHTML = `
                 <strong>Евромойка</strong><br>
@@ -336,21 +325,23 @@ questionIcon.style.fontSize = '14px';
             `;
         }
 
-        // Обработчик клика на значок с вопросом
         questionIcon.addEventListener('click', (event) => {
-            event.stopPropagation(); // Останавливаем всплытие события
+            event.stopPropagation();
+            const allDescriptions = document.querySelectorAll('.service-description');
+            allDescriptions.forEach(desc => {
+                if (desc !== description) {
+                    desc.style.display = 'none';
+                }
+            });
             description.style.display = description.style.display === 'none' ? 'block' : 'none';
         });
 
-    // Добавляем label и значок в контейнер услуги
-serviceContainer.appendChild(label);
-serviceContainer.appendChild(questionIcon);
-
-// Добавляем контейнер услуги в общий контейнер услуг
-servicesContainer.appendChild(serviceContainer);
+        serviceContainer.appendChild(label);
+        serviceContainer.appendChild(questionIcon);
+        serviceContainer.appendChild(description);
+        servicesContainer.appendChild(serviceContainer);
     });
 
-    // Закрываем описание при клике вне области
     document.addEventListener('click', (event) => {
         const descriptions = document.querySelectorAll('.service-description');
         descriptions.forEach(desc => {
