@@ -313,7 +313,7 @@ function populateServices(services) {
             `;
         }
 
-     questionIcon.addEventListener('click', (event) => {
+questionIcon.addEventListener('click', (event) => {
     event.stopPropagation();
 
     // Закрываем все открытые описания
@@ -327,49 +327,34 @@ function populateServices(services) {
     // Показываем или скрываем текущее описание
     if (description.style.display === 'none' || !description.style.display) {
         description.style.display = 'block';
+        blurOverlay.style.display = 'block'; // Показываем размытый фон
 
         // Позиционируем описание рядом с иконкой вопроса
         const iconRect = questionIcon.getBoundingClientRect();
-        const bodyRect = document.body.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY; // Учитываем прокрутку страницы
+        const scrollX = window.scrollX; // Учитываем горизонтальную прокрутку
 
         // Рассчитываем позицию окна
-        let left = iconRect.left + window.scrollX;
-        let top = iconRect.bottom + window.scrollY;
+        let left = iconRect.left + scrollX;
+        let top = iconRect.bottom + scrollY;
 
-        // Проверяем, чтобы окно не выходило за правый край body
-        if (left + description.offsetWidth > bodyRect.right) {
-            left = bodyRect.right - description.offsetWidth - 20; // Отступ от правого края
+        // Проверяем, чтобы окно не выходило за правый край экрана
+        if (left + description.offsetWidth > window.innerWidth) {
+            left = window.innerWidth - description.offsetWidth - 20; // Отступ от правого края
         }
 
-        // Проверяем, чтобы окно не выходило за нижний край body
-        if (top + description.offsetHeight > bodyRect.bottom) {
-            top = bodyRect.bottom - description.offsetHeight - 20; // Отступ от нижнего края
-        }
-
-        // Проверяем, чтобы окно не выходило за левый край body
-        if (left < bodyRect.left) {
-            left = bodyRect.left + 20; // Отступ от левого края
-        }
-
-        // Проверяем, чтобы окно не выходило за верхний край body
-        if (top < bodyRect.top) {
-            top = bodyRect.top + 20; // Отступ от верхнего края
+        // Проверяем, чтобы окно не выходило за нижний край экрана
+        if (top + description.offsetHeight > window.innerHeight + scrollY) {
+            top = iconRect.top + scrollY - description.offsetHeight - 10; // Показываем выше иконки
         }
 
         description.style.left = `${left}px`;
         description.style.top = `${top}px`;
     } else {
         description.style.display = 'none';
+        blurOverlay.style.display = 'none'; // Скрываем размытый фон
     }
 });
-
-        serviceContainer.appendChild(label);
-        serviceContainer.appendChild(questionIcon);
-        servicesContainer.appendChild(serviceContainer);
-        document.body.appendChild(description); // Добавляем описание в body, чтобы оно было поверх всех элементов
-    });
 
     // Закрываем описание при клике вне его области
     document.addEventListener('click', (event) => {
